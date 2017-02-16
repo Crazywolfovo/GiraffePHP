@@ -143,7 +143,7 @@ class DataBase
     /*
     *@method SELECT
     */
-    public function select($columns,$tabel,$conditions,$method,$options = '')
+    public function select($columns,$tabel,$conditions,$formate,$options = '')
     {
         if (!is_null($conditions)) {
             $sql_str = "SELECT ".$columns." FROM ".$tabel." WHERE ".$conditions;
@@ -151,7 +151,7 @@ class DataBase
             $sql_str = "SELECT ".$columns." FROM ".$tabel;
         }
         $result = $this->link->query($sql_str);
-        switch ($method) {
+        switch ($formate) {
             case 'fetch':
                 $resarray = $result->fetch($options);
                 break;

@@ -17,7 +17,6 @@
         "symfony/var-dumper":"*"
     },
     "autoload": {
-       "files": ["giraffe/function/function.php"],
        "psr-4": {
             "giraffe\\": "giraffe/",
             "app\\":"app/"

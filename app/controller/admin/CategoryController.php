@@ -37,18 +37,10 @@ class CategoryController extends Controller
                         array('id'=>14,'name'=>"文学",'pid'=>2),
                         array('id'=>15,'name'=>"四书五经",'pid'=>14)
                     );
-
-        $a = Tree::getTree($items,0,1,'...');
-        $d = Tree::subtree($items);
-        dump($a);
-        dump($d);
-      
-        //$b = Tree::setPrefix($a);
-        //dump($b);
-        $c = Tree::getOptions($a);
-        //dump($c);
-         echo "<select>";
-        foreach ($c as $key => $value) {
+        $tree = Tree::getOptions($items,'getTreeIter');
+        //dump($tree);
+        echo "<select>";
+        foreach ($tree as $key => $value) {
             echo "<option value=".$key.">$value</option>";
         }
         echo "</select>";
