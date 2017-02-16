@@ -33,6 +33,7 @@ class Tree
      * @param  string  $prefix       [formate name ]
      * @return array(array)          [tree sturct categoryarray]
      */
+    public static function getTreeRec($items,$pid = 0,$dep = 1,$prefix = '')
     {
        $tree = [];
         foreach ($items as $item) {
@@ -119,6 +120,7 @@ class Tree
 *| Discription:Method of Helper;
 *|-----------------------------------------------------------------------------------
 */
+    public static function setPrefix($data,$prefix = '')
     {
         $tree = [];
         $dep = 1;
