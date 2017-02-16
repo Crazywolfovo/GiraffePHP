@@ -94,7 +94,7 @@ class DataBase
     /*
     *@method INSERT
     */
-    public function insert($tabel,$values,$option)
+    public function insert($tabel,$values,$option = '')
     {
         $sql_str = "INSERT INTO ".$tabel." VALUES ".$values;
         $resnum = $this->execute($sql_str);
@@ -107,7 +107,7 @@ class DataBase
     /*
     *@method  UPDATE
     */
-    public function update($tabel,$values,$conditions)
+    public function update($tabel,$values,$conditions = '')
     {
         if (!is_null($conditions)) {
             $sql_str = "UPDATE ".$tabel." SET ".$values." WHERE ".$conditions;
@@ -119,7 +119,7 @@ class DataBase
     /*
     *@method  DELETE
     */
-    public function delete($table,$conditions)
+    public function delete($table,$conditions = '')
     {
          if (!is_null($conditions)) {
             $sql_str = "DELETE FROM ".$table." WHERE ".$conditions;
@@ -143,7 +143,7 @@ class DataBase
     /*
     *@method SELECT
     */
-    public function select($columns,$tabel,$conditions,$formate,$options = '')
+    public function select($columns,$tabel,$conditions = '',$formate,$options = '')
     {
         if (!is_null($conditions)) {
             $sql_str = "SELECT ".$columns." FROM ".$tabel." WHERE ".$conditions;
