@@ -58,14 +58,14 @@ class Response
 		header ( "Content-Type:$type;charset=$enc" );
 	}
 	public static function redirect($url, $code = 302) {
-		header ( "Location:$url", true, $code );
+		header ( "Refresh:2;Location:$url", true, $code );
 		exit;
 	}
 	public static function alert($text, $url = null) {
 		$text = addslashes ( $text );
 		$str = "\n<script type=\"text/javascript\">\nalert(\"$text\");\n";
 		if ($url) {
-			$str.= "window.location.href=\"$url\";\n";
+			$str.= "parent.location.href=\"$url\";\n";
 		}
 		$str.= "</script>\n";
 		echo $str;

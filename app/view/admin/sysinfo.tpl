@@ -1,12 +1,12 @@
 {extends file="layout.tpl"}
 {block name="serverinfo"}
 <div class="container">
-	<div class="col-md-8 col-sm-offset-2 text-center"> 
+	<div class="col-md-8 col-sm-offset-2 text-center">
 		<h2>欢迎使用Mr.Y CMS-SYSTEM</h2>
 	</div>
-	<table class="table table-bordered" style="border-collapse:collapse;">
+	<table data-toggle="table">
 		<thead>
-			<tr><th colspan="2">服务器相关信息</th></tr>
+			<tr><th>服务器相关信息</th><th></th></tr>
 		</thead>
 		<tbody>
 			<tr><td>服务器计算机名称</td><td>{$COMPUTERNAME}</td></tr>

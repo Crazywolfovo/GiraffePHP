@@ -59,10 +59,10 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="admin/category">显示分类</a>
+                                <a class="J_menuItem" href="admin/showcate">显示分类</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="graph_flot.html">添加分类</a>
+                                <a class="J_menuItem" href="admin/showaddcate">添加分类</a>
                             </li>
                         </ul>
                     </li>

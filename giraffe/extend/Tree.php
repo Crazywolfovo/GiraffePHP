@@ -147,7 +147,7 @@ class Tree
      * @param  [array(array)] $data [return of getTree]
      * @return [array]              [先序遍历树的一维数组集]
      */
-    public static function getOptions($data,$method,$prefix = '...')
+    public static function getOptions($data,$method = 'getTreeIter',$prefix = '......')
     {
         if ($method == 'getTreeIter') {
             $tree = self::getTreeIter($data);

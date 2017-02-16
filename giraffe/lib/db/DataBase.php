@@ -143,33 +143,40 @@ class DataBase
     /*
     *@method SELECT
     */
-    public function select($columns,$tabel,$conditions = '',$formate = '',$options = '')
+    public function select($columns,$tabel,$conditions = '',$formate = '',$options = null)
     {
-        if (!is_null($conditions)) {
+        if (!empty($conditions)) {
             $sql_str = "SELECT ".$columns." FROM ".$tabel." WHERE ".$conditions;
         }else{
             $sql_str = "SELECT ".$columns." FROM ".$tabel;
         }
+        //dump($sql_str);exit();
         $result = $this->link->query($sql_str);
         switch ($formate) {
             case 'fetch':
                 $resarray = $result->fetch($options);
+                $resnum = isset($resarray['0'])?ntval($resarray['0']):null;
+                if ($result && $resnum){
+                    return $resarray;
+                }else{
+                    return false;
+                }
                 break;
             case 'fetchAll':
                 $resarray = $result->fetchAll($options);
+                $resnum = isset($resarray['0']['0'])?intval($resarray['0']['0']):null;
+                if ($result && $resnum){
+                    return $resarray;
+                }else{
+                    return false;
+                }
                 break;
             case 'fetchColumn':
-                $resarray = $result->fetchColumn($options);
+                return $resnum = $result->fetchColumn($options);
                 break;
             default:
-                $resarray = $result->fetchAll(PDO::FETCH_ASSOC);
+                return $resarray = $result->fetchAll(\PDO::FETCH_ASSOC);
                 break;
-        }
-        $resnum = isset($resarray['0']['0'])?intval($resarray['0']['0']):null;
-        if ($result && $resnum){
-            return $resarray;
-        }else{
-            return false;
         }
     }
 }
