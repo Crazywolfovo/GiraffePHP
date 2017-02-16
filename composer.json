@@ -1,0 +1,32 @@
+{
+    "name":"GiraffePHP",
+    "description":"A Simple PHP Framework Build With Composerautoload",
+    "type":"Framework",
+    "keyword":["PHP","Framework","Giraffe"],
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "YZR",
+          "email": "154966231@qq.com"
+        }
+    ],
+    "require":{
+        "php":">=5.6.28",
+        "smarty/smarty": "3.1.31",
+        "filp/whoops":"*",
+        "symfony/var-dumper":"*"
+    },
+    "autoload": {
+       "files": ["giraffe/function/function.php"],
+       "psr-4": {
+            "giraffe\\": "giraffe/",
+            "app\\":"app/"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}
