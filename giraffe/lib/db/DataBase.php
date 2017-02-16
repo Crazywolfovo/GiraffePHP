@@ -143,7 +143,7 @@ class DataBase
     /*
     *@method SELECT
     */
-    public function select($columns,$tabel,$conditions = '',$formate,$options = '')
+    public function select($columns,$tabel,$conditions = '',$formate = '',$options = '')
     {
         if (!is_null($conditions)) {
             $sql_str = "SELECT ".$columns." FROM ".$tabel." WHERE ".$conditions;
