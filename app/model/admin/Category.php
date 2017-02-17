@@ -25,6 +25,10 @@ class Category
     {
         return self::$db = Register::get('dbh');
     }
+    public static function getData()
+    {
+        return self::getdb()->select('*','mry_category','','fetchAll',\PDO::FETCH_ASSOC);
+    }
     public static function addChild($pid,$catename){
                 $resnum = self::getdb()->select('COUNT(id)','mry_category',"pid=$pid AND catename='$catename'",'fetchColumn');
                 if (!$resnum) {
@@ -36,31 +40,13 @@ class Category
     /**
      * 删除栏目
      */
-    public function del(){
-        $id = $_POST['id'];
-        $stack = array($id);
-        $ids = array();
-        while(count($stack)>0){
-            $id = array_pop($stack);
-            array_push($ids,$id);
-            $res = $this->db->table('channel')->field('id')->where('parId='.$id)->select();
-            if(count($res)>0){
-                for($i=0;$i<count($res);$i++){
-                    array_push($stack,$res[$i]['id']);
-                }
-            }
-        }
-        $res = $this->db->table('channel')->where('id in ('.implode(',', $ids).')')->delete();
-        if($res){
-            echo json_encode($ids);
-        }else{
-            echo 0;
-        }
+    public static function delChild($id){
+        return self::getdb()->delete('mry_category',"id='$id' OR pid='$id'");
     }
     /**
-     * 更新栏目
+     * 更新分类命名称
      */
-    public function update(){
+    public function updateChild(){
         $id = $_POST['id'];
         $typename = $_POST['typename'];
         $res = $this->db->table('channel')->where('id='.$id)->update(array('name'=>$typename));
@@ -72,9 +58,9 @@ class Category
         return ;
     }
     /**
-     * 移动栏目
+     * 移动分类到其他分类下
      */
-    public function move(){
+    public function moveChild(){
         $parid = $_POST['parId'];
         $id = $_POST['id'];
         //首先查找当前要移动的栏目的父id 是否和要移动到栏目的子栏目的id是否相等

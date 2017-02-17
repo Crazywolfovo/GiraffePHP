@@ -164,8 +164,8 @@ class DataBase
                 break;
             case 'fetchAll':
                 $resarray = $result->fetchAll($options);
-                $resnum = isset($resarray['0']['0'])?intval($resarray['0']['0']):null;
-                if ($result && $resnum){
+                //$resnum = isset($resarray['0']['0'])?intval($resarray['0']['0']):null;
+                if ($result){
                     return $resarray;
                 }else{
                     return false;

@@ -16,7 +16,7 @@ class Tree
 {
     private static $config = [
         'id'   => 'id',
-        'name' => 'name',
+        'name' => 'catename',
         'pid'  => 'pid'
         ];
 
@@ -37,17 +37,32 @@ class Tree
     {
        $tree = [];
         foreach ($items as $item) {
-            if ($item['pid'] == $pid) {
+            if ($item[self::$config['pid']] == $pid) {
                 /*add column(dep) for (array)item*/
                 $item['dep'] = $dep;
-                $item['name'] = str_repeat($prefix, $dep-1).$item['name'];
+                $item[self::$config['name']] = str_repeat($prefix, $dep-1).$item[self::$config['name']];
                 /*get top cate from $items(pid = 0), push into $tree*/
                 $tree[] = $item;
-                $tree = array_merge($tree,self::getTree($items,$item['id'],$dep+1,$prefix));
+                $tree = array_merge($tree,self::getTree($items,$item[self::$config['id']],$dep+1,$prefix));
             }
         }
         return $tree;
     }
+    //递归查找父栏目（面包削导航）
+    public static function getParentRec($arr,$id){
+         $tree=array();
+        foreach($arr as $k=>$v){
+            if($v[self::$config['id']]==$id){
+                //echo 'ok';
+                if($v[self::$config['pid']]>0){//说明有父栏目
+                   $tree=array_merge($tree,getParentRec($arr,$v[self::$config['pid']])) ;
+                }
+                $tree[]=$v;
+            }
+        }
+        return $tree;
+    }
+
 /*
 *|-----------------------------------------------------------------------------------
 *| Discription:Method of Iteration;
@@ -66,10 +81,10 @@ class Tree
         {
             $flag = false;//默认没找到子树
             foreach($arr as $k=>$v){
-                 if($v['pid'] == $parent){
+                 if($v[self::$config['pid']] == $parent){
                         $subs [] = $v;
-                        array_push($task,$v['id']);//借助栈 把新的地区的id压入栈
-                        $parent = $v['id'];
+                        array_push($task,$v[self::$config['id']]);//借助栈 把新的地区的id压入栈
+                        $parent = $v[self::$config['id']];
                         unset($arr[$k]);//把找到的单元unset掉
                         $flag = true;
                  }
@@ -91,14 +106,14 @@ class Tree
      * @param  [int] $id  [description]
      * @return [array]      [description]
      */
-    public static function getParent($arr,$id){
+    public static function getParentIter($arr,$id){
         $par_arr = array();
         //var_dump($id);
         while($id !== 0){//外层循环的作用：0表示最顶层的栏目 等于0就表示无父栏目/父父栏目 只要不等于0就表示有上级目录 则循环
          foreach($arr as $v){//内层循环的作用：遍历数组查找出来$id对应的值  若找到了  该值就是它自身(第一次就是它自己)和父栏目/父父栏目..然后存入数组并终止循环(break)
-               if($v['id'] == $id){
+               if($v[self::$config['id']] == $id){
                    $par_arr[] = $v;
-                   $id = $v['pid'];
+                   $id = $v[self::$config['pid']];
                    break;
                }
             }
@@ -109,7 +124,7 @@ class Tree
         //根据parent的值找儿子
         $son=array();
         foreach($arr as $v){
-            if($v['pid']==$id){
+            if($v[self::$config['pid']]==$id){
                 $son[]=$v;
             }
         }
@@ -120,23 +135,30 @@ class Tree
 *| Discription:Method of Helper;
 *|-----------------------------------------------------------------------------------
 */
+    /**
+     * [setPrefix for getTreeIter]
+     * @param [array(array)] $data   [description]
+     * @param string $prefix [description]
+     */
     public static function setPrefix($data,$prefix = '')
     {
         $tree = [];
         $dep = 1;
         $pre = [0=>1];
         while ($val = current($data)) {
+            /*$val是一个一维数组，就是data的子数组*/
             $key = key($data);
             if ($key>0) {
-                if ($data[$key - 1]['pid'] !== $val['pid']) {
+                if ($data[$key - 1][self::$config['pid']] !== $val[self::$config['pid']]) {
                     $dep++;
                 }
             }
-            if (array_key_exists($val['pid'], $pre)) {
-                $dep = $pre[$val['pid']];
+            if (array_key_exists($val[self::$config['pid']], $pre)) {
+                $dep = $pre[$val[self::$config['pid']]];
             }
-            $val['name'] = str_repeat($prefix, $dep-1).$val['name'];
-            $pre[$val['pid']] = $dep;
+            $val[self::$config['name']] = str_repeat($prefix, $dep-1).$val[self::$config['name']];
+            $val['dep'] = $dep;
+            $pre[$val[self::$config['pid']]] = $dep;
             $tree[] = $val;
             next($data);
         }
@@ -151,14 +173,14 @@ class Tree
     {
         if ($method == 'getTreeIter') {
             $tree = self::getTreeIter($data);
-            $tree = self::setPrefix($tree,$prefix);
+            return $tree = self::setPrefix($tree,$prefix);
         }else{
-            $tree = self::getTreeRec($data,0,1,$prefix);
+            return $tree = self::getTreeRec($data,0,1,$prefix);
         }
-        $options = [];
-        foreach ($tree as $cate) {
-            $options[$cate['id']] = $cate['name'];
-        }
-        return $options;
+        // $options = [];
+        // foreach ($tree as $cate) {
+        //     $options[$cate[self::$config['id']]] = $cate[self::$config['name']];
+        // }
+        // return $options;
     }
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title>Mr.Y CMS ContolPanel</title>
+    <title>Mr.Y CMS ControlPanel</title>
     <!--[if lt IE 9]>
     <meta http-equiv="refresh" content="0;ie.html" />
     <![endif]-->
@@ -66,8 +66,20 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
-                        <a class="J_menuItem" href="articlemanage.html"><i class="fa fa-columns"></i> <span class="nav-label">文章管理</span></a>
+                     <li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">文章管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="">显示文章</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="">添加文章</a>
+                            </li>
+                        </ul>
                     </li>
                     <!-- <li>
                         <a href="#">
