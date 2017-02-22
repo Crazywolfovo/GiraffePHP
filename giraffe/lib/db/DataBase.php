@@ -97,6 +97,8 @@ class DataBase
     public function insert($tabel,$values,$option = '')
     {
         $sql_str = "INSERT INTO ".$tabel." VALUES ".$values;
+        // echo($sql_str);
+        // exit();
         $resnum = $this->execute($sql_str);
         if ($option == 'lastInsertId') {
             return $this->link->lastInsertId();

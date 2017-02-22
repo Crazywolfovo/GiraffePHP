@@ -23,5 +23,9 @@ Router::get('admin/showcate','app\controller\admin\CategoryController@showcate')
 Router::get('admin/showaddcate','app\controller\admin\CategoryController@showaddcate');
 Router::any('admin/addcate','app\controller\admin\CategoryController@addcate');
 Router::any('admin/delcate/(:num)','app\controller\admin\CategoryController@delcate');
+Router::get('admin/showarticle','app\controller\admin\ArticleController@showarticle');
 Router::get('admin/showaddarticle','app\controller\admin\ArticleController@showaddarticle');
+Router::any('admin/addarticle','app\controller\admin\ArticleController@addarticle');
+Router::any('admin/addthumb','app\controller\admin\ArticleController@addthumb');
+Router::any('admin/addeditorpic','app\controller\admin\ArticleController@addeditorpic');
 Router::dispatch();

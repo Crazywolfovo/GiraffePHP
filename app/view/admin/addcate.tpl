@@ -2,7 +2,7 @@
 {block name="addcate"}
 <h1 class="col-md-8 col-sm-offset-2 text-center">分类管理</h1>
 <div class="container">
-    <form class="form-horizontal">
+    <form class="form-horizontal" action="addcate" method="POST">
       <div class="form-group">
         <label for="parentcate" class="col-sm-2 control-label">父级分类</label>
         <div class="col-sm-10">

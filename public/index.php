@@ -21,8 +21,6 @@ define('DS',DIRECTORY_SEPARATOR);
  * PROJECT ROOT DIRECTORY EXEMPLE LIKE X:/xxx/GiraffePHP
  */
 define('GIRAFFEPHP', realpath(__DIR__.DS.'..'));
-
-
 /**
  * BOOTSTRAP FRAMEWORK
  */

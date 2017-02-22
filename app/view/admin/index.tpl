@@ -74,7 +74,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="">显示文章</a>
+                                <a class="J_menuItem" href="admin/showarticle">显示文章</a>
                             </li>
                             <li>
                                 <a class="J_menuItem" href="admin/showaddarticle">添加文章</a>
