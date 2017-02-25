@@ -43,4 +43,13 @@ class Article
             return false;
         }
     }
+    public static function delart($article_id)
+    {
+        $res = self::getdb()->delete('mry_articlecontent',"article_id='$article_id'");
+        if ($res) {
+            return self::getdb()->delete('mry_articley',"article_id='$article_id'");
+        }else{
+            return false;
+        }
+    }
 }

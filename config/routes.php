@@ -30,6 +30,7 @@ Router::any('admin/delcate/(:num)','app\controller\admin\CategoryController@delc
 Router::get('admin/showarticle','app\controller\admin\ArticleController@showarticle');
 Router::get('admin/showaddarticle','app\controller\admin\ArticleController@showaddarticle');
 Router::any('admin/addarticle','app\controller\admin\ArticleController@addarticle');
+Router::any('admin/delarticle/(:num)','app\controller\admin\ArticleController@delarticle');
 Router::any('admin/addthumb','app\controller\admin\ArticleController@addthumb');
 Router::any('admin/addeditorpic','app\controller\admin\ArticleController@addeditorpic');
 Router::dispatch();

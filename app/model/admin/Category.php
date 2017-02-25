@@ -41,7 +41,12 @@ class Category
      * 删除栏目
      */
     public static function delChild($id){
-        return self::getdb()->delete('mry_category',"id='$id' OR pid='$id'");
+        $res = self::getdb()->select('COUNT(article_id)','mry_article',"cate_id='$id'",'fetchColumn');
+        if ($res) {
+            return false;
+        }else{
+            return self::getdb()->delete('mry_category',"id='$id' OR pid='$id'");
+        }
     }
     /**
      * 更新分类命名称

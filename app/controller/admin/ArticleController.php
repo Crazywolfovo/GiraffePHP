@@ -81,8 +81,17 @@ class ArticleController extends Controller
             Response::alert('文章提交出错~','/admin');
         }
     }
-    public function delarticle()
+    public function delarticle($article_id)
     {
-        # code...
+        if (!empty($article_id)){
+           $res = Category::delatr($article_id);
+            if ($res) {
+                Response::alert('删除成功~','/admin');
+            }else{
+                Response::alert('删除失败~','/admin');
+            }
+        }else{
+            Response::alert('请选择要删除的文章~','/admin');
+        }
     }
 }

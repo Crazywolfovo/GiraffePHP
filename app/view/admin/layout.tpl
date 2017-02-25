@@ -33,5 +33,7 @@
     {block name="addarticle"}{/block}
     {block name="showarticle"}{/block}
     {block name="login"}{/block}
+    {block name="editcate"}{/block}
+    {block name="editarticle"}{/block}
 </body>
 </html>

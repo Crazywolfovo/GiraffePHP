@@ -63,7 +63,7 @@ class CategoryController extends Controller
             if ($res) {
                 Response::alert('删除成功~','/admin');
             }else{
-                Response::alert('删除失败~','/admin');
+                Response::alert('删除失败,请检查该分类下是是否还有文章~','/admin');
             }
         }else{
             Response::alert('分类名称不能为空~','/admin');

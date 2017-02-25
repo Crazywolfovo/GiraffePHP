@@ -30,7 +30,7 @@
                 <td class="text-center">{$item.copyfrom}</td>
                 <td class="text-center">{'Y-m-d H:i:s'|date:$item.create_time}</td>
                 <td class="text-center">{'Y-m-d H:i:s'|date:$item.update_time}</td>
-                <td class="text-center"><a class="btn btn-info btn-xs" href="">编辑</a>&nbsp;&nbsp;<a class="btn btn-info btn-xs" href="">删除</a></td>
+                <td class="text-center"><a class="btn btn-info btn-xs" href="">编辑</a>&nbsp;&nbsp;<a class="btn btn-info btn-xs" href="delarticle/{$item.article_id}">删除</a></td>
             </tr>
         {/foreach}
         </tbody>
