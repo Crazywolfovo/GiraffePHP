@@ -17,11 +17,15 @@ use app\model\admin\Category;
 use giraffe\extend\Tree;
 use giraffe\lib\http\Request;
 use giraffe\lib\http\Response;
+use giraffe\functions\Common;
 
 class CategoryController extends Controller
 {
     public function showcate()
     {
+        if (!Common::islogin('admin_id')) {
+            exit("您未，请先登录");
+        }
         $items = Category::getData();
         //dump($items);exit();
         $tree = Tree::getOptions($items);
@@ -30,6 +34,9 @@ class CategoryController extends Controller
     }
     public function showaddcate()
     {
+        if (!Common::islogin('admin_id')) {
+            exit("您未，请先登录");
+        }
         $items = Category::getData();
         $tree = Tree::getOptions($items);
         // $server = Request::server();

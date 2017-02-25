@@ -10,7 +10,7 @@
     | Discription:Define Publice Functions
     |-----------------------------------------------------------------------------------
 */
-namespace giraffe\function;
+namespace giraffe\functions;
 class Common{
     /**
      * 自定义实现json_encode功能的函数
@@ -24,7 +24,7 @@ class Common{
         //return urldecode(json_encode($data));
         return urldecode(json_encode($data));
     }
-    static private function deal_array($data){
+    private static  function deal_array($data){
         if (is_array($data)) {
             foreach ($data as $key => $val) {
                 if (is_array($val)) {
@@ -38,7 +38,37 @@ class Common{
         }
         return $data;
     }
-
+    public static function show($status,$message)
+    {
+        $result = array('status'=>$status,
+                        'message'=>$message);
+        return json_encode($result);
+    }
+    public static function islogin($id = "")
+    {
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+        if (empty($_SESSION) || empty($_SESSION[$id])) {
+            return false;
+        }else{
+            return true;
+        }
+    }
+    public static function islogout($sessid,$sessname,$url)
+    {
+        if(!isset($_SESSION)) {
+             session_start();
+        }
+        if(!empty($_SESSION) && !empty($_SESSION[$sessid]) && !empty($_SESSION[$sessname])) {
+            unset($_SESSION[$sessid]);
+            unset($_SESSION[$sessname]);
+            session_destroy();
+            header("location:$url");
+        }else{
+            header("location:$url");
+        }
+    }
     /**
      * [printer description]
      * @param  [type] $param [description]

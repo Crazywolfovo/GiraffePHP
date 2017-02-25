@@ -32,5 +32,6 @@
     {block name="addcate"}{/block}
     {block name="addarticle"}{/block}
     {block name="showarticle"}{/block}
+    {block name="login"}{/block}
 </body>
 </html>

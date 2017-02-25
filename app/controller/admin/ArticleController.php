@@ -18,18 +18,25 @@ use app\model\admin\Article;
 use giraffe\lib\http\Request;
 use giraffe\lib\http\Response;
 use giraffe\extend\Upload;
+use giraffe\functions\Common;
 
 class ArticleController extends Controller
 {
     public function showarticle()
     {
-        $items = Article::showarts();
+        if (!Common::islogin('admin_id')) {
+            exit("您未，请先登录");
+        }
+         $items = Article::showarts();
         //dump($items);
         $this->assign('articlelist',$items)->display('admin','showarticle.tpl');
     }
     public function showaddarticle()
     {
-         $items = Article::getData();
+        if (!Common::islogin('admin_id')) {
+            exit("您未，请先登录");
+        }
+        $items = Article::getData();
         //dump($items);exit();
         $tree = Tree::getOptions($items);
         //dump($tree);
