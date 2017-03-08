@@ -23,8 +23,22 @@ class Article
     {
         return self::getdb()->select('*','mry_category','','fetchAll',\PDO::FETCH_ASSOC);
     }
+    public static function getDataNum()
+    {
+        return self::getdb()->select('COUNT(article_id)','mry_article','','fetchColumn');
+    }
+    public static function getPageData($pageid,$pagesize)
+    {
+        $pageid = (intval($pageid)-1)*$pagesize;
+        $condition = "true LIMIT $pageid,$pagesize";
+        return self::getdb()->select('*','mry_article,mry_articlecontent',$condition,'fetchAll',\PDO::FETCH_ASSOC);
+    }
     public static function showarts(){
         return self::getdb()->select('*','mry_article','','fetchAll',\PDO::FETCH_ASSOC);
+    }
+    public static function getart($id)
+    {
+        return self::getdb()->select('*',"mry_article,mry_articlecontent,mry_category","mry_article.article_id='$id' AND mry_article.article_id=mry_articlecontent.article_id AND mry_article.cate_id=mry_category.id",'fetch',\PDO::FETCH_ASSOC);
     }
     public static function addart($cate_id,$title,$smalltitle,$author,$thumbnail,$keywords,$discription,$copyfrom,$content)
     {
@@ -45,11 +59,32 @@ class Article
     }
     public static function delart($article_id)
     {
-        $res = self::getdb()->delete('mry_articlecontent',"article_id='$article_id'");
+               self::getdb()->delete('mry_articlecontent',"article_id='$article_id'");
+        $res = self::getdb()->delete('mry_article',"article_id='$article_id'");
         if ($res) {
-            return self::getdb()->delete('mry_articley',"article_id='$article_id'");
+            return true;
         }else{
             return false;
         }
+    }
+    public static function updatearticle($arr = array())
+    {
+        //dump("content='".$arr['content']."'");exit();
+        $subarr = array();
+        $sqlstr = '';
+        foreach ($arr as $key => $value) {
+            if (!empty($value) && !is_null($value)) {
+                $subarr[$key] = $value;
+            }
+        }
+        $article_id = array_pop($subarr);
+        $content = array_pop($subarr);
+        foreach ($subarr as $key => $value) {
+            $sqlstr.= $key.'='."'".$value."'".',';
+        }
+        $sqlstr = rtrim($sqlstr,',');
+        $sqlstr2 = "content='".$arr['content']."'";
+               self::getdb()->update('mry_article',$sqlstr,"article_id='$article_id'");
+        return self::getdb()->update('mry_articlecontent',$sqlstr2,"article_id='$article_id'");
     }
 }

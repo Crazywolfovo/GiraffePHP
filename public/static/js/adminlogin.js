@@ -18,6 +18,7 @@ var login = {
         var data = {'username':username,'password':password};
         //alert(url);
         $.post(url,data,function(result){
+            //console.log(result);
             if(result.status == 0) {
                 return dialog.error(result.message);
             }

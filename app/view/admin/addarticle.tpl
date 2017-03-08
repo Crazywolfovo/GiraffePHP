@@ -2,7 +2,7 @@
 {block name="addarticle"}
 <script src="/static/vendor/kindeditor/kindeditor-all-min.js"></script>
 <script src="/static/vendor/kindeditor/lang/zh-CN.js"></script>
-<div class="container">
+<div class="container" style="margin-top: 50px;">
     <form class="form-horizontal" action="addarticle" method="POST">
       <div class="form-group">
         <label for="title" class="col-sm-2 control-label">文章标题</label>

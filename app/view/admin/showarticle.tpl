@@ -30,10 +30,17 @@
                 <td class="text-center">{$item.copyfrom}</td>
                 <td class="text-center">{'Y-m-d H:i:s'|date:$item.create_time}</td>
                 <td class="text-center">{'Y-m-d H:i:s'|date:$item.update_time}</td>
-                <td class="text-center"><a class="btn btn-info btn-xs" href="">编辑</a>&nbsp;&nbsp;<a class="btn btn-info btn-xs" href="delarticle/{$item.article_id}">删除</a></td>
+                <td class="text-center"><a class="btn btn-info btn-xs" href="showeditart/{$item.article_id}">编辑</a>&nbsp;&nbsp;<a class="btn btn-info btn-xs" href="delarticle/{$item.article_id}">删除</a></td>
             </tr>
         {/foreach}
         </tbody>
     </table>
+    <div class="container">
+        <a  class="btn btn-info" role="button" href="1">首页</a>
+    {for $page=1 to $pagenum}
+        <a class="btn btn-info" role="button" href="{$page}">{$page}</a>
+    {/for}
+        <a class="btn btn-info" role="button" href="{$pagenum}">尾页</a>
+    </div>
 </div>
 {/block}

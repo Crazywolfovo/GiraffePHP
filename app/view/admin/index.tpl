@@ -59,7 +59,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="admin/showcate">显示分类</a>
+                                <a class="J_menuItem" href="admin/showcate/1">显示分类</a>
                             </li>
                             <li>
                                 <a class="J_menuItem" href="admin/showaddcate">添加分类</a>
@@ -74,7 +74,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="admin/showarticle">显示文章</a>
+                                <a class="J_menuItem" href="admin/showarticle/1">显示文章</a>
                             </li>
                             <li>
                                 <a class="J_menuItem" href="admin/showaddarticle">添加文章</a>

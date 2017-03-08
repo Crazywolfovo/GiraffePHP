@@ -152,12 +152,12 @@ class DataBase
         }else{
             $sql_str = "SELECT ".$columns." FROM ".$tabel;
         }
-        //dump($sql_str);exit();
+        //dump($sql_str);//exit();
         $result = $this->link->query($sql_str);
         switch ($formate) {
             case 'fetch':
                 $resarray = $result->fetch($options);
-                $resnum = isset($resarray['0'])?ntval($resarray['0']):null;
+                $resnum = count($resarray);
                 if ($result && $resnum){
                     return $resarray;
                 }else{
@@ -166,8 +166,8 @@ class DataBase
                 break;
             case 'fetchAll':
                 $resarray = $result->fetchAll($options);
-                //$resnum = isset($resarray['0']['0'])?intval($resarray['0']['0']):null;
-                if ($result){
+                $resnum = count($resarray,COUNT_RECURSIVE);
+                if ($result && $resnum){
                     return $resarray;
                 }else{
                     return false;

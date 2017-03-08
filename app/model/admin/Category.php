@@ -18,9 +18,7 @@ use giraffe\lib\load\Register;
 class Category
 {
     private static $db;
-    /**
-     * 增加子栏目
-     */
+
     private static function getdb()
     {
         return self::$db = Register::get('dbh');
@@ -29,7 +27,22 @@ class Category
     {
         return self::getdb()->select('*','mry_category','','fetchAll',\PDO::FETCH_ASSOC);
     }
-    public static function addChild($pid,$catename){
+    public static function getDataNum()
+    {
+        return self::getdb()->select('COUNT(id)','mry_category','','fetchColumn');
+    }
+    public static function getPageData($pageid,$pagesize)
+    {
+        $pageid = (intval($pageid)-1)*$pagesize;
+        $condition = "true LIMIT $pageid,$pagesize";
+        return self::getdb()->select('*','mry_category',$condition,'fetchAll',\PDO::FETCH_ASSOC);
+    }
+    public static function getChild($id)
+    {
+        return self::getdb()->select('*','mry_category',"id='$id'",'fetch',\PDO::FETCH_ASSOC);
+    }
+    public static function addChild($pid,$catename)
+    {
                 $resnum = self::getdb()->select('COUNT(id)','mry_category',"pid=$pid AND catename='$catename'",'fetchColumn');
                 if (!$resnum) {
                     return self::getdb()->insert("mry_category(catename,pid)","('$catename',$pid)");
@@ -37,10 +50,8 @@ class Category
                     return false;
                 }
     }
-    /**
-     * 删除栏目
-     */
-    public static function delChild($id){
+    public static function delChild($id)
+    {
         $res = self::getdb()->select('COUNT(article_id)','mry_article',"cate_id='$id'",'fetchColumn');
         if ($res) {
             return false;
@@ -49,37 +60,38 @@ class Category
         }
     }
     /**
-     * 更新分类命名称
+     * 修改分类
+     * @return [type] [description]
      */
-    public function updateChild(){
-        $id = $_POST['id'];
-        $typename = $_POST['typename'];
-        $res = $this->db->table('channel')->where('id='.$id)->update(array('name'=>$typename));
-        if($res){
-            echo json_encode(array('res'=>1));
-        }else{
-            echo json_encode(array('res'=>0));
+    public static function updateChild($id,$newpid,$newcatename)
+    {
+        $cateinfo = self::getChild($id);
+        $res1 = true;
+        $res2 = true;
+        if ($newpid !== $cateinfo['pid']) {
+            $res1 = self::moveChild($id,$newpid);
         }
-        return ;
+        if (!empty($newcatename)) {
+            $res2 = self::changeCateName($id,$newcatename);
+        }
+        if ($res1 && $res2) {
+            return true;
+        }else{
+            return false;
+        }
     }
     /**
      * 移动分类到其他分类下
      */
-    public function moveChild(){
-        $parid = $_POST['parId'];
-        $id = $_POST['id'];
-        //首先查找当前要移动的栏目的父id 是否和要移动到栏目的子栏目的id是否相等
-        $ids = $this->db->table('channel')->field('parId')->where('id='.$id)->find();
-        if($ids['parId'] == $parid){
-            echo json_encode(array('res'=>1));
-            return ;
-        }
-
-        $res = $this->db->table('channel')->where('id='.$id)->update(array('parId'=>$parid));
-        if($res){
-            echo json_encode(array('res'=>1));
-        }else{
-            echo json_encode(array('res'=>0));
-        }
+    private static function moveChild($id,$newpid)
+    {
+        return self::getdb()->update("mry_category","pid='$newpid'","id='$id'");
+    }
+    /**
+     * 更新分类命名称
+     */
+    private static function changeCateName($id,$newcatename)
+    {
+        return self::getdb()->update("mry_category","catename='$newcatename'","id='$id'");
     }
 }

@@ -1,5 +1,6 @@
 <?php
 /* 功能说明：防护XSS,SQL,代码执行，文件包含等多种高危漏洞 */
+namespace giraffe\lib\security;
 class Security {
 	private static $url_arr = array('xss' => "\\=\\+\\/v(?:8|9|\\+|\\/)|\\%0acontent\\-(?:id|location|type|transfer\\-encoding)" );
 	private static $args_arr = array (

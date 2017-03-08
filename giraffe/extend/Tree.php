@@ -43,7 +43,7 @@ class Tree
                 $item[self::$config['name']] = str_repeat($prefix, $dep-1).$item[self::$config['name']];
                 /*get top cate from $items(pid = 0), push into $tree*/
                 $tree[] = $item;
-                $tree = array_merge($tree,self::getTree($items,$item[self::$config['id']],$dep+1,$prefix));
+                $tree = array_merge($tree,self::getTreeRec($items,$item[self::$config['id']],$dep+1,$prefix));
             }
         }
         return $tree;
@@ -82,7 +82,7 @@ class Tree
             $flag = false;//默认没找到子树
             foreach($arr as $k=>$v){
                  if($v[self::$config['pid']] == $parent){
-                        $subs [] = $v;
+                        $subs[] = $v;
                         array_push($task,$v[self::$config['id']]);//借助栈 把新的地区的id压入栈
                         $parent = $v[self::$config['id']];
                         unset($arr[$k]);//把找到的单元unset掉

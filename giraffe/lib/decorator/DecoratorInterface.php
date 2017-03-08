@@ -7,14 +7,13 @@
     | Author: YZR <154966231@qq.com>
     | Copyright (c) 2017-Forever All Rights Reserved.
     |-----------------------------------------------------------------------------------
-    | Discription:Basecontroller
+    | Discription:
     |-----------------------------------------------------------------------------------
 */
-namespace giraffe\lib\controller;
+namespace giraffe\lib\decorator;
 
-use giraffe\lib\view\View;
-
-abstract class Controller
+interface DecoratorInterface
 {
-    use View;//trait View
+    public function before();
+    public function after();
 }

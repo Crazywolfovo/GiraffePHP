@@ -7,14 +7,20 @@
     | Author: YZR <154966231@qq.com>
     | Copyright (c) 2017-Forever All Rights Reserved.
     |-----------------------------------------------------------------------------------
-    | Discription:Basecontroller
+    | Discription:
     |-----------------------------------------------------------------------------------
 */
-namespace giraffe\lib\controller;
+namespace app\controller\admin;
+use giraffe\lib\controller\Controller;
+use giraffe\functions\Common;
 
-use giraffe\lib\view\View;
-
-abstract class Controller
+class CommonController extends Controller
 {
-    use View;//trait View
+
+    public function __construct()
+    {
+        if (!Common::islogin('admin_id')) {
+           exit("请先登录~~~");
+        }
+    }
 }

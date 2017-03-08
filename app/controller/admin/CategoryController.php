@@ -11,36 +11,56 @@
     |-----------------------------------------------------------------------------------
 */
 namespace app\controller\admin;
-
-use giraffe\lib\controller\Controller;
 use app\model\admin\Category;
 use giraffe\extend\Tree;
 use giraffe\lib\http\Request;
 use giraffe\lib\http\Response;
 use giraffe\functions\Common;
 
-class CategoryController extends Controller
+class CategoryController extends CommonController
 {
-    public function showcate()
+    public function showcate($pageid)
     {
-        if (!Common::islogin('admin_id')) {
-            exit("您未，请先登录");
-        }
-        $items = Category::getData();
+        //dump($_POST);
+        //$catenum = count(Category::getData());
+        $catenum = Category::getDataNum();
+        //dump($catenum);
+        //$pageid=isset($_POST['pageid'])?$_POST['pageid']:1;
+        $pagesize = 2;
+        $pagenum = intval(ceil($catenum/$pagesize));
+        $items = Category::getPageData($pageid,$pagesize);
+        //$items = Category::getData();
         //dump($items);exit();
         $tree = Tree::getOptions($items);
         //dump($tree);
-        $this->assign('tree',$tree)->display('admin','showcate.tpl');
+        $this->assign('tree',$tree)->assign('pagenum',$pagenum)->display('admin','showcate.tpl');
     }
     public function showaddcate()
     {
-        if (!Common::islogin('admin_id')) {
-            exit("您未，请先登录");
-        }
         $items = Category::getData();
         $tree = Tree::getOptions($items);
         // $server = Request::server();
         $this->assign('tree',$tree)->display('admin','addcate.tpl');
+    }
+    public function showeditcate($id)
+    {
+        $items = Category::getData();
+        $tree = Tree::getOptions($items);
+        $child = Category::getChild($id);
+        //dump($child);
+        $this->assign('tree',$tree)->assign('child',$child)->display('admin','editcate.tpl');
+    }
+    public function updatecate()
+    {
+        $id = Request::post('id');
+        $newpid = Request::post('newpid');
+        $newcatename = Request::post('newcatename');
+        $res = Category::updateChild($id,$newpid,$newcatename);
+        if ($res) {
+            Response::alert('修改成功~','/admin');
+        }else{
+            Response::alert('修改失败~','/admin');
+        }
     }
     public function addcate()
     {
