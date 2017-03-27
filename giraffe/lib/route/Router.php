@@ -29,11 +29,11 @@ class Router {
   /**
    * add filter for your routes
    */
-  public static function filter($filter, $result) {
+/*  public static function filter($filter, $result) {
     if ($filter()) {
       $result();
     }
-  }
+  }*/
 
   /**
    * Defines a route with formate Router::$method("$routes(==$uri)","$callback(func or str)")
@@ -177,7 +177,7 @@ class Router {
       }
     }
 
-    // run the error callback if the route was not found
+    //run the error callback if the route was not found
     if ($found_route == false) {
       if (!self::$error_callback) {
         self::$error_callback = function() {
@@ -189,7 +189,10 @@ class Router {
     }
   }
 
-  // detect true URI, inspired by CodeIgniter 2
+  /**
+   * detect true URI
+   * @return [type] [description]
+   */
   private static function detect_uri()
   {
     $uri = $_SERVER['REQUEST_URI'];

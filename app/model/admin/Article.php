@@ -11,14 +11,11 @@
     |-----------------------------------------------------------------------------------
 */
 namespace app\model\admin;
-use giraffe\lib\load\Register;
-class Article
+
+use giraffe\lib\model\Model;
+
+class Article extends Model
 {
-    private static $db;
-    private static function getdb()
-    {
-        return self::$db = Register::get('dbh');
-    }
     public static function getData()
     {
         return self::getdb()->select('*','mry_category','','fetchAll',\PDO::FETCH_ASSOC);

@@ -1,13 +1,5 @@
 <?php
-/**
- * 作者：迹忆
- * 个人博客：迹忆博客
- * 博客url：www.onmpw.com
- * ************
- * 数据库操作类
- * ************
- */
-//namespace lib\Db;
+namespace giraffe\lib\Db;
 class Db{
     protected $config = array(
         'dsn'=>'',

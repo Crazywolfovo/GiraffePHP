@@ -10,10 +10,7 @@
     | Discription:Routing Config
     |-----------------------------------------------------------------------------------
 */
-/**
- * 加载路由配置
- * 实例化控制器,然后调用控制器方法也被调用了
- */
+
 use giraffe\lib\route\Router;
 Router::get('/','app\controller\home\HomeController@index');
 Router::get('home','app\controller\home\HomeController@index');
@@ -33,7 +30,7 @@ Router::any('admin/showcate/delcate/(:num)','app\controller\admin\CategoryContro
 Router::get('admin/showarticle/(:num)','app\controller\admin\ArticleController@showarticle');
 Router::get('admin/showaddarticle','app\controller\admin\ArticleController@showaddarticle');
 Router::any('admin/addarticle','app\controller\admin\ArticleController@addarticle');
-Router::any('admin/delarticle/(:num)','app\controller\admin\ArticleController@delarticle');
+Router::any('admin/showarticle/delarticle/(:num)','app\controller\admin\ArticleController@delarticle');
 Router::any('admin/addthumb','app\controller\admin\ArticleController@addthumb');
 Router::any('admin/addeditorpic','app\controller\admin\ArticleController@addeditorpic');
 Router::get('admin/showarticle/showeditart/(:num)','app\controller\admin\ArticleController@showeditart');

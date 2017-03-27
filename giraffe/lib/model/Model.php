@@ -7,26 +7,19 @@
     | Author: YZR <154966231@qq.com>
     | Copyright (c) 2017-Forever All Rights Reserved.
     |-----------------------------------------------------------------------------------
-    | Discription:
+    | Discription:Base model class
     |-----------------------------------------------------------------------------------
 */
-namespace app\model\admin;
+namespace giraffe\lib\model;
 
-use giraffe\lib\model\Model;
+use giraffe\lib\load\Register;
 
-class Admin extends Model
+class Model
 {
-    public static function judgelogin($username,$password)
+    protected static function getdb()
     {
-        $pseed='Thd0076';
-        $password = md5(md5($password).$pseed);
-        $result = self::getdb()->select("admin_id","mry_admin","username='$username' AND password='$password'","fetchColumn");
-        if ($result) {
-            $_SESSION['admin_name'] = $username;
-            $_SESSION['admin_id'] = $result;
-            return true;
-        }else{
-            return false;
-        }
+        return Register::get('dbh');
     }
 }
+
+
